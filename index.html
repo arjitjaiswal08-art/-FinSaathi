@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI-powered Financial Planning & Budgeting Assistant for middle-class Indian families. Get personalized insights, spending analysis, and smart savings recommendations." />
+  <title>FinSaathi – AI Financial Planner for Indian Families</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Animated background orbs -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="FinSaathi Home">
+        <span class="logo-icon" aria-hidden="true">₹</span>
+        <span>Fin<strong>Saathi</strong></span>
+      </a>
+      <div class="nav-links">
+        <a href="#input-section" class="nav-link">My Finances</a>
+        <a href="#dashboard" class="nav-link">Dashboard</a>
+        <a href="#goals" class="nav-link">Goals</a>
+      </div>
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme" title="Toggle light/dark mode">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🇮🇳 Built for Indian Families</div>
+      <h1 class="hero-title">Your AI-Powered<br /><span class="gradient-text">Financial Coach</span></h1>
+      <p class="hero-subtitle">Enter your income, expenses, and goals — get a complete financial health report, smart budget advice, and an actionable savings plan in seconds.</p>
+      <a href="#input-section" class="cta-btn" id="hero-cta">
+        <span>Start My Analysis</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="hero-stats" aria-label="Key statistics">
+        <div class="hero-stat"><span class="stat-num">50-30-20</span><span class="stat-label">Rule Applied</span></div>
+        <div class="hero-stat"><span class="stat-num">₹ INR</span><span class="stat-label">Indian Currency</span></div>
+        <div class="hero-stat"><span class="stat-num">AI</span><span class="stat-label">Powered Insights</span></div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-img-wrap">
+        <div class="floating-card card-a">
+          <span class="fc-label">Health Score</span>
+          <span class="fc-val score-demo">78</span>
+        </div>
+        <div class="floating-card card-b">
+          <span class="fc-label">Monthly Savings</span>
+          <span class="fc-val">₹12,400</span>
+        </div>
+        <div class="floating-card card-c">
+          <span class="fc-label">Goal Progress</span>
+          <span class="fc-val">62%</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== INPUT SECTION ===== -->
+  <section class="section" id="input-section" aria-labelledby="input-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="input-heading">Enter Your Financial Data</h2>
+        <p>Fill in the fields below — we'll handle the rest. All data stays private on your device.</p>
+      </div>
+
+      <form id="finance-form" class="glass-card form-grid" novalidate aria-label="Financial data input form">
+
+        <!-- Income -->
+        <fieldset class="form-group full-width">
+          <legend class="group-title">💰 Income</legend>
+          <div class="input-row">
+            <div class="input-wrap">
+              <label for="monthly-income">Monthly Take-Home Income (₹)</label>
+              <input type="number" id="monthly-income" name="monthly-income" placeholder="e.g. 60000" min="0" required aria-required="true" />
+            </div>
+            <div class="input-wrap">
+              <label for="other-income">Other Income (₹/month)</label>
+              <input type="number" id="other-income" name="other-income" placeholder="Freelance, rent, etc." min="0" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Expenses -->
+        <fieldset class="form-group full-width">
+          <legend class="group-title">🧾 Monthly Expenses</legend>
+          <div class="input-row three-col">
+            <div class="input-wrap">
+              <label for="exp-rent">Rent / Home Loan EMI (₹)</label>
+              <input type="number" id="exp-rent" name="exp-rent" placeholder="e.g. 15000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="exp-food">Food & Groceries (₹)</label>
+              <input type="number" id="exp-food" name="exp-food" placeholder="e.g. 8000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="exp-transport">Transport (₹)</label>
+              <input type="number" id="exp-transport" name="exp-transport" placeholder="e.g. 3000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="exp-utilities">Utilities & Bills (₹)</label>
+              <input type="number" id="exp-utilities" name="exp-utilities" placeholder="e.g. 2500" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="exp-healthcare">Healthcare (₹)</label>
+              <input type="number" id="exp-healthcare" name="exp-healthcare" placeholder="e.g. 1000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="exp-education">Children's Education (₹)</label>
+              <input type="number" id="exp-education" name="exp-education" placeholder="e.g. 5000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="exp-emi">Other EMIs / Loans (₹)</label>
+              <input type="number" id="exp-emi" name="exp-emi" placeholder="Personal loan, car EMI" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="exp-entertainment">Entertainment & Dining Out (₹)</label>
+              <input type="number" id="exp-entertainment" name="exp-entertainment" placeholder="e.g. 3000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="exp-shopping">Shopping & Clothing (₹)</label>
+              <input type="number" id="exp-shopping" name="exp-shopping" placeholder="e.g. 2000" min="0" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Savings & Investments -->
+        <fieldset class="form-group">
+          <legend class="group-title">📈 Savings & Investments</legend>
+          <div class="input-row">
+            <div class="input-wrap">
+              <label for="current-savings">Total Current Savings (₹)</label>
+              <input type="number" id="current-savings" name="current-savings" placeholder="e.g. 50000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="monthly-sip">Monthly SIP / MF Investment (₹)</label>
+              <input type="number" id="monthly-sip" name="monthly-sip" placeholder="e.g. 3000" min="0" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Debt -->
+        <fieldset class="form-group">
+          <legend class="group-title">💳 Debt</legend>
+          <div class="input-row">
+            <div class="input-wrap">
+              <label for="total-debt">Total Outstanding Debt (₹)</label>
+              <input type="number" id="total-debt" name="total-debt" placeholder="e.g. 200000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="debt-emi">Monthly Debt EMI (₹)</label>
+              <input type="number" id="debt-emi" name="debt-emi" placeholder="e.g. 8000" min="0" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Goals -->
+        <fieldset class="form-group full-width">
+          <legend class="group-title">🎯 Financial Goals</legend>
+          <div class="input-row three-col">
+            <div class="input-wrap">
+              <label for="goal-name-1">Goal 1 Name</label>
+              <input type="text" id="goal-name-1" name="goal-name-1" placeholder="e.g. Emergency Fund" />
+            </div>
+            <div class="input-wrap">
+              <label for="goal-target-1">Target Amount (₹)</label>
+              <input type="number" id="goal-target-1" name="goal-target-1" placeholder="e.g. 100000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="goal-saved-1">Already Saved (₹)</label>
+              <input type="number" id="goal-saved-1" name="goal-saved-1" placeholder="e.g. 30000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="goal-name-2">Goal 2 Name</label>
+              <input type="text" id="goal-name-2" name="goal-name-2" placeholder="e.g. Home Down Payment" />
+            </div>
+            <div class="input-wrap">
+              <label for="goal-target-2">Target Amount (₹)</label>
+              <input type="number" id="goal-target-2" name="goal-target-2" placeholder="e.g. 500000" min="0" />
+            </div>
+            <div class="input-wrap">
+              <label for="goal-saved-2">Already Saved (₹)</label>
+              <input type="number" id="goal-saved-2" name="goal-saved-2" placeholder="e.g. 80000" min="0" />
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-actions full-width">
+          <button type="submit" class="cta-btn" id="analyze-btn" aria-label="Analyze my finances">
+            <span class="btn-text">🔍 Analyze My Finances</span>
+            <span class="btn-loading hidden" aria-live="polite">⏳ Analyzing...</span>
+          </button>
+          <button type="button" class="secondary-btn" id="demo-btn" aria-label="Load demo data">Try Demo Data</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== DASHBOARD ===== -->
+  <section class="section" id="dashboard" hidden aria-labelledby="dashboard-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="dashboard-heading">Your Financial Dashboard</h2>
+        <p id="dashboard-date" aria-live="polite"></p>
+      </div>
+
+      <!-- Health Score -->
+      <div class="score-row">
+        <div class="glass-card score-card" aria-label="Financial health score">
+          <div class="score-ring-wrap">
+            <svg class="score-ring" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="ring-bg" cx="60" cy="60" r="50" />
+              <circle class="ring-fill" id="score-ring-fill" cx="60" cy="60" r="50" />
+            </svg>
+            <div class="score-center">
+              <span class="score-number" id="health-score-val">--</span>
+              <span class="score-label-sm">/100</span>
+            </div>
+          </div>
+          <div class="score-meta">
+            <h3 class="score-title">Financial Health Score</h3>
+            <p class="score-grade" id="score-grade">--</p>
+            <p class="score-desc" id="score-desc">--</p>
+          </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid" role="list" aria-label="Key financial metrics">
+          <div class="kpi-card glass-card" role="listitem" id="kpi-income">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-data">
+              <span class="kpi-label">Total Income</span>
+              <span class="kpi-value" id="kpi-income-val">₹--</span>
+            </div>
+          </div>
+          <div class="kpi-card glass-card" role="listitem" id="kpi-expense">
+            <div class="kpi-icon">💸</div>
+            <div class="kpi-data">
+              <span class="kpi-label">Total Expenses</span>
+              <span class="kpi-value" id="kpi-expense-val">₹--</span>
+            </div>
+          </div>
+          <div class="kpi-card glass-card" role="listitem" id="kpi-savings">
+            <div class="kpi-icon">🏦</div>
+            <div class="kpi-data">
+              <span class="kpi-label">Monthly Savings</span>
+              <span class="kpi-value" id="kpi-savings-val">₹--</span>
+            </div>
+          </div>
+          <div class="kpi-card glass-card" role="listitem" id="kpi-rate">
+            <div class="kpi-icon">📊</div>
+            <div class="kpi-data">
+              <span class="kpi-label">Savings Rate</span>
+              <span class="kpi-value" id="kpi-rate-val">--%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-row">
+        <div class="glass-card chart-card">
+          <h3 class="chart-title">Expense Breakdown</h3>
+          <div class="chart-wrap">
+            <canvas id="expense-chart" aria-label="Expense breakdown donut chart" role="img"></canvas>
+          </div>
+        </div>
+        <div class="glass-card chart-card">
+          <h3 class="chart-title">Budget Allocation (50-30-20)</h3>
+          <div class="chart-wrap">
+            <canvas id="budget-chart" aria-label="Budget allocation bar chart" role="img"></canvas>
+          </div>
+        </div>
+        <div class="glass-card chart-card">
+          <h3 class="chart-title">Savings Growth Projection</h3>
+          <div class="chart-wrap">
+            <canvas id="growth-chart" aria-label="Savings growth projection line chart" role="img"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Insights Panel -->
+      <div class="insights-grid" id="insights-grid" aria-label="AI financial insights">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <!-- Goals Section -->
+      <div id="goals" aria-labelledby="goals-heading" style="margin-top:2.5rem;">
+        <div class="section-header">
+          <h2 id="goals-heading">🎯 Goal Tracker</h2>
+          <p>Track your progress toward financial milestones</p>
+        </div>
+        <div class="goals-grid" id="goals-grid" aria-label="Financial goals progress">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <p>© 2026 <strong>FinSaathi</strong> — AI Financial Planner for Indian Families</p>
+      <p class="footer-note">All calculations are for informational purposes only. Consult a SEBI-registered financial advisor for major decisions.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
